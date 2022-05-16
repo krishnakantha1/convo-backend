@@ -45,6 +45,7 @@ const { handleJoinGroup } = require("./socket_functions/join_group")
 const { handleCloseGroup } = require("./socket_functions/user_closed_group")
 const { handleGetAllUsers } = require("./socket_functions/get_all_members_of_group")
 const { logConnectionClose } = require("./socket_functions/log_connection_close")
+const { handleLeaveGroup } = require("./socket_functions/leave_group")
 
 io.on("connection",(socket)=>{
   
@@ -73,6 +74,8 @@ io.on("connection",(socket)=>{
   socket.on("cnvo_user_closed_group", (data) => handleCloseGroup(data, socket))
 
   socket.on("cnvo_get_members_for_group", (data) => handleGetAllUsers(data, socket))
+
+  socket.on("cnvo_user_leave_group", (data) => handleLeaveGroup(data, socket))
 
   socket.on("disconnecting", ()=> {
         const group_id = Array.from(socket.rooms).find((g) => g.startsWith("GROUP#"))

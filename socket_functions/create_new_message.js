@@ -33,7 +33,12 @@ const handleNewMessage = async (data, socket, io)=>{
         /*
             returned message -> same as above format.
         */
-        io.in(group_id).emit("cnvo_new_created_message", r.rows)
+        if(r.rows[0].p_err_buf){
+            socket.emit("cnvo_error",{error:true,message:r.rows[0].p_err_buf})
+        }else{
+            io.in(group_id).emit("cnvo_new_created_message", r.rows)
+        }
+        
 
     }catch(e){
         console.log(e)

@@ -3,10 +3,11 @@ const pool = require("../DB_config/postgresql");
 
 const logUser = async (socketID, userID, socket) => {
     if(!socketID || !userID){
-        return;
+        return
     }
 
     try{
+        //this query will save the user connection in DB and return the list of groups that the user is present in
         const r = await pool.query("select * from user_connection_open($1,$2)",[socketID,userID])
         
         if(r.rowCount>0){

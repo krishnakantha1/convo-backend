@@ -9,6 +9,7 @@ const cors = require("cors");
 env.config({ path: "./.env" });
 
 const pool = require("./DB_config/postgresql");
+//postgres://ndqtlwfhcbtvoj:6940174e66b5d5491d0c9a84ad7d1ddaabf21e6cdecb2b1b9e7d91dd032dba88@ec2-54-225-214-37.compute-1.amazonaws.com:5432/dcsgt2a34v1or8
 
 
 const app = express();
@@ -22,7 +23,8 @@ app.use("/users/",userManagement);
 //---------------------------------------------------------------------
 
 app.get("/",(req,res)=> res.json({
-  status:"healthyer",
+  status: "up and running",
+  dbms_url : process.env.DATABASE_URL
 }))
 
 const server = http.createServer(app);
